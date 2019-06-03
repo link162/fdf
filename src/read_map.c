@@ -6,15 +6,16 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:13:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/04/11 17:02:20 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/06/03 14:11:38 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 
-void	check_point(char *line, int *i, t_point *p, t_fdf *fdf)
+void	check_point(char *line, int *i, t_point *p, t_fdf *fdf, int y)
 {
+	int t = *i;
 	p->h = mod_atoi(line, i, fdf);
 	if (!ft_strncmp(&line[*i], ",0x", 3))
 		p->color = mod_atoi_baze(line, i, fdf);
@@ -33,7 +34,7 @@ void	cut_line(char *line, int y, t_fdf *fdf)
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
 		if (line[i])
-			check_point(line, &i, &fdf->map[y][n], fdf);
+			check_point(line, &i, &fdf->map[y][n], fdf, y);
 		n++;
 	}
 }
@@ -51,7 +52,7 @@ void	full_fdf(t_fdf *fdf)
 		{
 			ft_printf("%i", fdf->map[i][j].h);
 			if (fdf->map[i][j].color)
-				ft_printf("x1");
+				ft_printf("x%i", fdf->map[i][j].color);
 			ft_putchar(' ');
 			j++;
 		}
