@@ -13,8 +13,8 @@
 #ifndef FDF_H
 # define FDF_H
 # include "../libftprintf/libftprintf.h"
-# include <mlx.h>
-# include <math.h>
+//# include <mlx.h>
+//# include <math.h>
 
 #define ERR_FILE "Error file"
 #define ERR_MAP "Error map"
@@ -24,14 +24,9 @@ typedef struct s_point
 	int			x;
 	int			y;
 	int			z;
+	int			h;
 	int			color;
 }				t_point;
-
-typedef struct s_row
-{
-	t_point		*list;
-	
-}				t_row;
 
 typedef struct s_fdf
 {
@@ -40,7 +35,8 @@ typedef struct s_fdf
 	int			heigth;
 }				t_fdf;
 
-void			read_map(t_fdf *fdf, int fd);
-void			error_case(char *str);
-
+void			read_map(int fd, t_fdf *fdf);
+void			error_case(char *str, t_fdf *fdf);
+int				mod_atoi(char *line, int *i, t_fdf *fdf);
+int				mod_atoi_baze(char *line, int *i, t_fdf *fdf);
 #endif

@@ -12,32 +12,94 @@
 
 #include "fdf.h"
 
-void	error_case(char *str)
+void	error_case(char *str, t_fdf *fdf)
 {
-	ft_printf("%s\n", str);
+	int i;
+
+	i = 0;
+	if (fdf->map)
+		while (i < fdf->heigth)
+			free(fdf->map[i++]);
+	if (fdf->map)
+		free(fdf->map);
+	if (str)
+		ft_printf("%s\n", str);
+	free(fdf);
+	get_next_line(-5, NULL);
 	exit(1);
 }
 
-void	fdf(int fd)
+int		len_width(char *line)
 {
-	t_fdf fdf;
+	int i;
+	int z;
+	int res;
 
-	ft_bzero(&fdf, sizeof(t_fdf));
-	read_map(&fdf, fd);
+	i = 0;
+	z = 0;
+	res = 0;
+	while (line[i])
+	{
+		if (line[i] == ' ' || line[i] == '\t')
+			z = 0;
+		else if (z == 0)
+		{
+			z = 1;
+			res++;
+		}
+		i++;
+	}
+	return (res);
+}
+
+void	check_size(int fd, t_fdf *fdf)
+{
+	static int	i;
+	int			z;
+	char		*line;
+
+	z = 0;
+	while (get_next_line(fd, &line) > 0)
+	{
+		if (i == 0)
+		{
+			fdf->width = len_width(line);
+			i++;
+		}
+		if (fdf->width != len_width(line))
+		{
+			free(line);
+			error_case(ERR_FILE, fdf);
+		}
+		z++;
+		free(line);
+	}
+	fdf->heigth = z;
 }
 
 int		main(int argc, char **argv)
 {
-	int fd;
+	int		fd;
+	t_fdf	*fdf;
 
+	fdf = (t_fdf *)malloc(sizeof(t_fdf));
+	ft_bzero(fdf, sizeof(t_fdf));
 	if (argc == 2)
 	{
 		fd = open(argv[1], O_RDONLY);
 		if (fd < 1)
 			ft_printf(ERR_FILE);
 		else
-			fdf(fd);
+		{
+			check_size(fd, fdf);
+			close(fd);
+			fd = open(argv[1], O_RDONLY);
+			if (fd < 1)
+				ft_printf(ERR_FILE);
+			read_map(fd, fdf);
+		}
 	}
 	else
 		ft_printf("Usage: ./fdf <map_name>\n");
+	free(fdf);
 }

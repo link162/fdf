@@ -12,88 +12,68 @@
 
 #include "fdf.h"
 
-int		len_width(char *line, int i)
-{
-	int z;
-	int res;
 
-	res = 0;
-	i = 0;
-	while (line[i])
-	{
-		z = 0;
-		while (line[i] == ' ' || line[i] == '\t')
-			i++;
-		while (line[i] != ' ' && line[i] != '\t' && line[i])
-		{
-			z++;
-			i++;
-		}
-		if (z)
-			res++;
-	}
-	if (res < 1)
-		error_case(ERR_FILE);
-	return (res);
+void	check_point(char *line, int *i, t_point *p, t_fdf *fdf)
+{
+	p->h = mod_atoi(line, i, fdf);
+	if (!ft_strncmp(&line[*i], ",0x", 3))
+		p->color = mod_atoi_baze(line, i, fdf);
 }
 
-int		mod_atoi(char *str, int *i)
-{
-	(*i)++;
-/*	int			res;
-	int			minus;
-
-	res = 0;
-	minus = str[*i] == '-' ? -1 : 1;
-	if (minus)
-		(*i)++;
-	while (!ft_isdigit(str[*i]))
-	{
-	printf("$$$%i\n", *i);
-		res = res * 10 + str[*i] - 48;
-		(*i)++;
-		if (res > 2147483648)
-			error_case(ERR_MAP);
-	}*/
-//	printf("$$$%i\n", res);
-//	if ((res == 2147483648 && minus == 1) || (str[j] == '\0' || str[j] == ' ' ||
-//				str[j] == ',' || str[j] == '\t'))
-//		error_case(ERR_MAP);
-//	return (res * minus);
-	return (str[*i - 1] - 48);
-}
-
-void	cut_line(t_point *row, char *str)
+void	cut_line(char *line, int y, t_fdf *fdf)
 {
 	int i;
-	int c;
+	int n;
 
+	n = 0;
 	i = 0;
-	c = 0;
-	while (str[i])
+	fdf->map[y] = (t_point *)malloc(sizeof(t_point) * fdf->width);
+	while (line[i])
 	{
-		while (str[i] == ' ' || str[i] == '\t')
+		while (line[i] == ' ' || line[i] == '\t')
 			i++;
-		if (!ft_isdigit(str[i]))
-			row->z = mod_atoi(str, &i);
-		ft_printf("%i ", row->z);
+		if (line[i])
+			check_point(line, &i, &fdf->map[y][n], fdf);
+		n++;
 	}
 }
 
-void	read_map(t_fdf *fdf, int fd)
+void	full_fdf(t_fdf *fdf)
 {
-	char 		*line;
-	t_point		*row;
-	static int	i;
+	int i;
+	int j;
 
+	i = 0;
+	while (i < fdf->heigth)
+	{
+		j = 0;
+		while (j < fdf->width)
+		{
+			ft_printf("%i", fdf->map[i][j].h);
+			if (fdf->map[i][j].color)
+				ft_printf("x1");
+			ft_putchar(' ');
+			j++;
+		}
+		ft_putchar('\n');
+		i++;
+	}
+}
+
+void	read_map(int fd, t_fdf *fdf)
+{
+	char	*line;
+	int		y;
+
+	y = 0;
+	fdf->map = (t_point **)malloc(sizeof(t_point *) * fdf->heigth);
+	ft_bzero(fdf->map, sizeof(t_point *) * fdf->heigth);
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (i == 0)
-			fdf->width = len_width(line, i++);
-		if (fdf->width != len_width(line, 0))
-			error_case(ERR_FILE);
-		row = (t_point *)malloc(sizeof(t_point));
-		cut_line(row, line);
+		cut_line(line, y++, fdf);
 		free(line);
 	}
+	full_fdf(fdf);
+	error_case(NULL, fdf);
+	close(fd);
 }

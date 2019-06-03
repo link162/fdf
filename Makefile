@@ -21,6 +21,7 @@ INC_DIR 	= ./includes/
 
 SRC			=	main.c \
 				read_map.c \
+				mod_function.c \
 
 
 LIBFT 		= $(LIBFT_DIR)libftprintf.a
@@ -31,14 +32,14 @@ HEADER_FLAGS = -I $(INC_DIR) -I $(LIBFT_INC)
 
 OBJ			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
-CC_FLAGS	= -O3 
+CC_FLAGS	= -g3 
 CC 			= gcc
 
 
 all:$(NAME) 
 
 $(NAME): $(LIBFT) $(OBJ) 
-	@$(CC) $(OBJ) $(LIBFT) -o $(NAME) -lncurses
+	@$(CC) $(OBJ) $(LIBFT) -o $(NAME)
 	@printf "\033[1;32mfdf created \033[0m\n"
 
 $(OBJ): | $(OBJ_DIR)
