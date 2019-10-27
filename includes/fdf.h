@@ -6,18 +6,20 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:45:34 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/04/11 16:24:24 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/10/27 22:22:12 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # include "../libftprintf/libftprintf.h"
-//# include <mlx.h>
-//# include <math.h>
+# include <mlx.h>
+# include <math.h>
 
 #define ERR_FILE "Error file"
 #define ERR_MAP "Error map"
+#define WINDOW_SIZE_X 2000
+#define WINDOW_SIZE_Y 1000
 
 typedef struct s_point
 {
@@ -30,6 +32,9 @@ typedef struct s_point
 
 typedef struct s_fdf
 {
+	void		*mlx;
+	void		*data;
+	char		*name;
 	t_point		**map;
 	int			width;
 	int			heigth;

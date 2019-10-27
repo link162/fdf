@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:13:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/06/03 14:11:38 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/10/27 22:19:23 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	cut_line(char *line, int y, t_fdf *fdf)
 {
 	int i;
 	int n;
-
+		
 	n = 0;
 	i = 0;
 	fdf->map[y] = (t_point *)malloc(sizeof(t_point) * fdf->width);
@@ -41,24 +41,13 @@ void	cut_line(char *line, int y, t_fdf *fdf)
 
 void	full_fdf(t_fdf *fdf)
 {
-	int i;
-	int j;
-
-	i = 0;
-	while (i < fdf->heigth)
-	{
-		j = 0;
-		while (j < fdf->width)
-		{
-			ft_printf("%i", fdf->map[i][j].h);
-			if (fdf->map[i][j].color)
-				ft_printf("x%i", fdf->map[i][j].color);
-			ft_putchar(' ');
-			j++;
-		}
-		ft_putchar('\n');
-		i++;
-	}
+	void *ptr = mlx_init();
+	if (!ptr)
+		error_case("global_error\n", fdf);
+	mlx_new_window(ptr, WINDOW_SIZE_X, WINDOW_SIZE_Y, "Link");
+	mlx_new_image(ptr, WINDOW_SIZE_X, WINDOW_SIZE_Y);
+	mlx_loop(ptr);
+	while(1);
 }
 
 void	read_map(int fd, t_fdf *fdf)

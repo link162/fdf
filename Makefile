@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/01/21 14:55:38 by ybuhai            #+#    #+#              #
-#    Updated: 2019/04/11 12:14:57 by ybuhai           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME		=	fdf
 
 LIB			=	libftprintf/
@@ -23,10 +11,10 @@ SRC			=	main.c \
 				read_map.c \
 				mod_function.c \
 
-
 LIBFT 		= $(LIBFT_DIR)libftprintf.a
 LIBFT_DIR 	= ./libftprintf/
 LIBFT_INC	= $(LIBFT_DIR)
+MLXFLAGS	= -L /usr/local/lib -lmlx -lm -framework OpenGL -framework AppKit
 
 HEADER_FLAGS = -I $(INC_DIR) -I $(LIBFT_INC)
 
@@ -39,7 +27,7 @@ CC 			= gcc
 all:$(NAME) 
 
 $(NAME): $(LIBFT) $(OBJ) 
-	@$(CC) $(OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(OBJ) $(MLXFLAGS) $(LIBFT) -o $(NAME)
 	@printf "\033[1;32mfdf created \033[0m\n"
 
 $(OBJ): | $(OBJ_DIR)
@@ -52,7 +40,6 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEAD)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
-
 
 clean:
 	@rm -f $(OBJ)
