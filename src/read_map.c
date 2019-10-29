@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:13:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/10/27 22:19:23 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/10/29 20:03:09 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,22 @@ void	cut_line(char *line, int y, t_fdf *fdf)
 
 void	full_fdf(t_fdf *fdf)
 {
-	void *ptr = mlx_init();
-	if (!ptr)
+	int x;
+	int y;
+	int z;
+
+	fdf->mlx = mlx_init();
+	if (!fdf->mlx)
 		error_case("global_error\n", fdf);
-	mlx_new_window(ptr, WINDOW_SIZE_X, WINDOW_SIZE_Y, "Link");
-	mlx_new_image(ptr, WINDOW_SIZE_X, WINDOW_SIZE_Y);
-	mlx_loop(ptr);
-	while(1);
+	fdf->window = mlx_new_window(fdf->mlx, WINDOW_SIZE_X, WINDOW_SIZE_Y, fdf->name);
+	if (!fdf->window)
+		error_case("global_error\n", fdf);
+	fdf->img = mlx_new_image(fdf->mlx, WINDOW_SIZE_X, WINDOW_SIZE_Y);
+	if (!fdf->img)
+		error_case("global_error\n", fdf);
+	fdf->data = (int *)mlx_get_data_addr(fdf->img, &x, &y, &z);
+	write_data_to_window(fdf);
+	mlx_loop(fdf->mlx);
 }
 
 void	read_map(int fd, t_fdf *fdf)

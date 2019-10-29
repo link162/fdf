@@ -10,6 +10,7 @@ INC_DIR 	= ./includes/
 SRC			=	main.c \
 				read_map.c \
 				mod_function.c \
+				write_data_to_window.c \
 
 LIBFT 		= $(LIBFT_DIR)libftprintf.a
 LIBFT_DIR 	= ./libftprintf/

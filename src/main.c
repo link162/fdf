@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 11:11:40 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/10/27 22:22:24 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/10/29 19:19:46 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int		main(int argc, char **argv)
 			fd = open(argv[1], O_RDONLY);
 			if (fd < 1)
 				ft_printf(ERR_FILE);
+			fdf->name = &argv[0][2];
 			read_map(fd, fdf);
 		}
 	}
