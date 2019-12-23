@@ -6,19 +6,20 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:13:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/10/29 20:03:09 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/23 21:01:09 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-
 void	check_point(char *line, int *i, t_point *p, t_fdf *fdf, int y)
 {
 	int t = *i;
-	p->h = mod_atoi(line, i, fdf);
+	p->z = mod_atoi(line, i, fdf);
 	if (!ft_strncmp(&line[*i], ",0x", 3))
 		p->color = mod_atoi_baze(line, i, fdf);
+	else
+		p->color = -1;
 }
 
 void	cut_line(char *line, int y, t_fdf *fdf)
@@ -54,7 +55,10 @@ void	full_fdf(t_fdf *fdf)
 	fdf->img = mlx_new_image(fdf->mlx, WINDOW_SIZE_X, WINDOW_SIZE_Y);
 	if (!fdf->img)
 		error_case("global_error\n", fdf);
-	fdf->data = (int *)mlx_get_data_addr(fdf->img, &x, &y, &z);
+	fdf->data = mlx_get_data_addr(fdf->img, &fdf->bits_per_pixel, &fdf->size_line, &fdf->endian);
+	fdf->cam.zoom = (int)MINIMUM(((WINDOW_SIZE_X - MENU_SIZE) / fdf->width / 2), (WINDOW_SIZE_Y / fdf->heigth / 2));
+	fdf->cam.z = 1;
+	fdf->cam.iso = 0;
 	write_data_to_window(fdf);
 	mlx_loop(fdf->mlx);
 }

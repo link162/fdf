@@ -6,11 +6,24 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 11:11:40 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/10/29 19:19:46 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/23 21:17:36 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void put_pixel(t_fdf *fdf, int x, int y, int color)
+{
+	int i;
+	if (x >= MENU_SIZE && x < WINDOW_SIZE_X && y >= 0 && y < WINDOW_SIZE_Y)
+	{
+		i = (fdf->bits_per_pixel * x / 8) + y * fdf->size_line;
+		ft_printf("i = %i\nx = %i\ny = %i\n", i, x, y);
+		fdf->data[i++] = color;
+		fdf->data[i++] = color >> 8;
+		fdf->data[i] = color >> 16;
+	}
+}
 
 void	error_case(char *str, t_fdf *fdf)
 {
@@ -23,7 +36,7 @@ void	error_case(char *str, t_fdf *fdf)
 	if (fdf->map)
 		free(fdf->map);
 	if (str)
-		ft_printf("%s\n", str);
+		ft_printf("error: %s\n", str);
 	free(fdf);
 	get_next_line(-5, NULL);
 	exit(1);

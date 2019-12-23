@@ -11,6 +11,7 @@ SRC			=	main.c \
 				read_map.c \
 				mod_function.c \
 				write_data_to_window.c \
+				projection.c \
 
 LIBFT 		= $(LIBFT_DIR)libftprintf.a
 LIBFT_DIR 	= ./libftprintf/
