@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 19:31:51 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/23 21:03:28 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/26 21:11:27 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,23 @@ int		mod_atoi(char *str, int *i, t_fdf *fdf)
 	return ((int)res * minus);
 }
 
+
+double  percent(int s, int e, int c)
+{
+     double  p;
+     double  d;
+
+     p = c - s;
+     d = e - s;
+    return ((d == 0) ? 1.0 : (p / d));
+}
+
+
 int def_color(int z, t_fdf *fdf)
 {
 	double p;
 
-	p = z / CLR_MAX;
+	p = percent(fdf->min_h, fdf->max_h, z);
 	if (p < 0.1)
 		return (BACK_1);
 	if (p < 0.2)

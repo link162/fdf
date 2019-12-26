@@ -18,7 +18,6 @@ void put_pixel(t_fdf *fdf, int x, int y, int color)
 	if (x >= MENU_SIZE && x < WINDOW_SIZE_X && y >= 0 && y < WINDOW_SIZE_Y)
 	{
 		i = (fdf->bits_per_pixel * x / 8) + y * fdf->size_line;
-		ft_printf("i = %i\nx = %i\ny = %i\n", i, x, y);
 		fdf->data[i++] = color;
 		fdf->data[i++] = color >> 8;
 		fdf->data[i] = color >> 16;

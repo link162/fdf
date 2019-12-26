@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 20:03:33 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/23 21:50:00 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/26 21:42:30 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ int	get_color(t_point current, t_point start, t_point end, t_point delta)
 	int		blue;
 	double	percentage;
 
-	ft_printf("curr-%i\nstart-%i\nend-%i\n", current.color, start.color, end.color);
 	if (current.color == end.color)
 		return (current.color);
 	if (delta.x > delta.y)
-		percentage = current.x / CLR_MAX;
+		percentage = percent(start.x, end.x, current.x);
 	else
-		percentage = current.y / CLR_MAX;
+		percentage = percent(start.y, end.y, current.y);
 	red = (1 - percentage) * ((start.color >> 16) & 0xFF) + percentage *
 		((end.color >> 16) & 0xFF);
 	green = (1 - percentage) * ((start.color >> 8) & 0xFF) + percentage *
@@ -48,13 +47,11 @@ void	draw_line(t_fdf *fdf, t_point *f)
 		{
 			err[0] -= f[2].y;
 			curr.x += f[3].x;
-			ft_printf("here\n");
 		}
 		if (err[1] < f[2].x)
 		{
 			err[0] += f[2].x;
 			curr.y += f[3].y;
-			ft_printf("bye\n");
 		}
 	}
 }

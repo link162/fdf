@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:13:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/23 21:01:09 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/26 20:59:36 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,13 @@ void	cut_line(char *line, int y, t_fdf *fdf)
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
 		if (line[i])
+		{
 			check_point(line, &i, &fdf->map[y][n], fdf, y);
+			if (fdf->map[y][n].z > fdf->max_h)
+				fdf->max_h = fdf->map[y][n].z;
+			if (fdf->map[y][n].z < fdf->min_h)
+				fdf->min_h = fdf->map[y][n].z == -1 ? 0 : fdf->map[y][n].z;
+		}
 		n++;
 	}
 }
@@ -69,6 +75,8 @@ void	read_map(int fd, t_fdf *fdf)
 	int		y;
 
 	y = 0;
+	fdf->min_h = CLR_MAX;
+	fdf->max_h = CLR_MIN;
 	fdf->map = (t_point **)malloc(sizeof(t_point *) * fdf->heigth);
 	ft_bzero(fdf->map, sizeof(t_point *) * fdf->heigth);
 	while (get_next_line(fd, &line) > 0)

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 19:32:24 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/23 20:54:41 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/26 21:41:22 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@
 #define WINDOW_SIZE_Y 1080
 #define FIELD_COLOR 0x222222
 #define MENU_COLOR 0x1E1E1E
-#define BACK_1 0x09661A
-#define BACK_2 0x0B7E20
-#define BACK_3 0x0E9827
-#define BACK_4 0x0FA72A
-#define BACK_5 0x0CBF2C
-#define BACK_6 0x0BCE2E
-#define BACK_7 0x0BDC31
-#define BACK_8 0x0BE833
-#define BACK_9 0x07F533
+#define BACK_1 0xFF7300
+#define BACK_2 0x0016FF
+#define BACK_3 0x00ff8b
+#define BACK_4 0xFF0000
+#define BACK_5 0xe400ff
+#define BACK_6 0x0016ff
+#define BACK_7 0x00fff7
+#define BACK_8 0x49FF00
+#define BACK_9 0xFBFF00
 #define MENU_SIZE 250
 #define CLR_MIN (unsigned)(0L)
-#define CLR_MAX (unsigned)(~CLR_MIN)
+#define CLR_MAX (int)(~CLR_MIN >> 1)
 #define FT_ABS(X) (((X) < 0) ? (-(X)) : (X))
 #define MINIMUM(x, y) (((x) > (y)) ? (y) : (x))
 #define FT_MIN(A, B) (((A) < (B)) ? (A) : (B))
@@ -80,6 +80,8 @@ typedef struct s_fdf
 	int			endian;
 	int			width;
 	int			heigth;
+	int			min_h;
+	int			max_h;
 	t_cam		cam;
 	t_mouse		mouse;
 	t_point		**map;
@@ -93,4 +95,5 @@ void			write_data_to_window(t_fdf *fdf);
 t_point			new_point(t_fdf *fdf, int x, int y);
 t_point			projection(t_fdf *fdf, t_point point);
 void			put_pixel(t_fdf *fdf, int x, int y, int color);
+double			percent(int s, int e, int c);
 #endif
