@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 20:03:33 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/26 21:42:30 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/26 22:13:33 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ void	write_data_to_window(t_fdf *fdf)
 		}
 		y++;
 	}
+	control(fdf);
 	mlx_put_image_to_window(fdf->mlx, fdf->window, fdf->img, 0, 0);
 }

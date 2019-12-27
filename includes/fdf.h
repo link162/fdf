@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 19:32:24 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/26 21:41:22 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/27 21:30:29 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "../libftprintf/libftprintf.h"
 # include <mlx.h>
 # include <math.h>
-#include <stdio.h>
 
 #define ERR_FILE "Error file"
 #define ERR_MAP "Error map"
@@ -33,6 +32,21 @@
 #define BACK_8 0x49FF00
 #define BACK_9 0xFBFF00
 #define MENU_SIZE 250
+
+# define M_L	1
+# define M_S_U	4
+# define M_S_D	5
+
+# define K_U			126
+# define K_D			125
+# define K_L			123
+# define K_R			124
+
+# define K_E			53
+# define K_I			34
+# define K_P			35
+
+
 #define CLR_MIN (unsigned)(0L)
 #define CLR_MAX (int)(~CLR_MIN >> 1)
 #define FT_ABS(X) (((X) < 0) ? (-(X)) : (X))
@@ -96,4 +110,6 @@ t_point			new_point(t_fdf *fdf, int x, int y);
 t_point			projection(t_fdf *fdf, t_point point);
 void			put_pixel(t_fdf *fdf, int x, int y, int color);
 double			percent(int s, int e, int c);
+void			control(t_fdf *fdf);
+void			zoom(int key, t_fdf *fdf);
 #endif
