@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 19:31:51 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/26 21:11:27 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/28 11:46:29 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		values(int c)
 	return (c - 48);
 }
 
-int		mod_atoi_baze(char *str, int *i, t_fdf *fdf)
+int		mod_atoi_baze(char *str, int *i)
 {
 	int res;
 
@@ -57,19 +57,7 @@ int		mod_atoi(char *str, int *i, t_fdf *fdf)
 	return ((int)res * minus);
 }
 
-
-double  percent(int s, int e, int c)
-{
-     double  p;
-     double  d;
-
-     p = c - s;
-     d = e - s;
-    return ((d == 0) ? 1.0 : (p / d));
-}
-
-
-int def_color(int z, t_fdf *fdf)
+int		def_color(int z, t_fdf *fdf)
 {
 	double p;
 
@@ -93,13 +81,14 @@ int def_color(int z, t_fdf *fdf)
 	return (BACK_9);
 }
 
-t_point new_point(t_fdf *fdf, int x, int y)
+t_point	new_point(t_fdf *fdf, int x, int y)
 {
 	t_point new;
 
 	new.x = x;
 	new.y = y;
 	new.z = fdf->map[y][x].z;
-	new.color = fdf->map[y][x].color == -1 ? def_color(new.z, fdf) : fdf->map[y][x].color;
-	return new;
+	new.color = fdf->map[y][x].color == -1 ? def_color(new.z, fdf) :
+		fdf->map[y][x].color;
+	return (new);
 }

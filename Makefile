@@ -24,7 +24,7 @@ HEADER_FLAGS = -I $(INC_DIR) -I $(LIBFT_INC)
 
 OBJ			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
-CC_FLAGS	= -g3 
+CC_FLAGS	= -O3 -Wall -Wextra -Werror
 CC 			= gcc
 
 

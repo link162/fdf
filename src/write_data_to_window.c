@@ -6,13 +6,13 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 20:03:33 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/26 22:13:33 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/28 11:58:23 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_color(t_point current, t_point start, t_point end, t_point delta)
+int		get_color(t_point current, t_point start, t_point end, t_point delta)
 {
 	int		red;
 	int		green;
@@ -29,14 +29,15 @@ int	get_color(t_point current, t_point start, t_point end, t_point delta)
 		((end.color >> 16) & 0xFF);
 	green = (1 - percentage) * ((start.color >> 8) & 0xFF) + percentage *
 		((end.color >> 8) & 0xFF);
-	blue = (1 - percentage) * (start.color & 0xFF) + percentage * (end.color & 0xFF);
+	blue = (1 - percentage) * (start.color & 0xFF) + percentage *
+		(end.color & 0xFF);
 	return ((red << 16) | (green << 8) | blue);
 }
 
 void	draw_line(t_fdf *fdf, t_point *f)
 {
-	t_point curr;
-	int err[2];
+	t_point	curr;
+	int		err[2];
 
 	curr = f[0];
 	err[0] = f[2].x - f[2].y;
@@ -59,7 +60,7 @@ void	draw_line(t_fdf *fdf, t_point *f)
 void	prepate_two_points(t_fdf *fdf, int x, int y, int x_or_y)
 {
 	t_point f[4];
-  	
+
 	f[0] = projection(fdf, new_point(fdf, x, y));
 	if (x_or_y)
 		f[1] = projection(fdf, new_point(fdf, x, y + 1));
@@ -78,7 +79,8 @@ void	draw_background(t_fdf *fdf)
 	int *disp;
 
 	i = 0;
-	ft_bzero(fdf->data, WINDOW_SIZE_X * WINDOW_SIZE_Y * (fdf->bits_per_pixel / 8));
+	ft_bzero(fdf->data, WINDOW_SIZE_X * WINDOW_SIZE_Y *
+			(fdf->bits_per_pixel / 8));
 	disp = (int *)(fdf->data);
 	while (i < WINDOW_SIZE_X * WINDOW_SIZE_Y)
 	{
@@ -109,4 +111,5 @@ void	write_data_to_window(t_fdf *fdf)
 	}
 	control(fdf);
 	mlx_put_image_to_window(fdf->mlx, fdf->window, fdf->img, 0, 0);
+	print_menu(fdf);
 }

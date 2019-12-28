@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 20:20:56 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/23 21:01:02 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/28 11:46:55 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	rotate_z(int *x, int *y, double gamma)
 	*y = last_x * sin(gamma) + last_y * cos(gamma);
 }
 
-t_point		projection(t_fdf *fdf, t_point p)
+t_point	projection(t_fdf *fdf, t_point p)
 {
 	int last_x;
 	int last_y;

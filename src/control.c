@@ -6,13 +6,13 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 22:13:02 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/27 22:37:29 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/28 11:43:53 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int mouse_move(int x, int y, void *data)
+int		mouse_move(int x, int y, void *data)
 {
 	t_fdf *fdf;
 
@@ -30,14 +30,15 @@ int mouse_move(int x, int y, void *data)
 	return (1);
 }
 
-int mouse_release(int key, int x, int y, t_fdf *fdf)
+int		mouse_release(int key, int x, int y, t_fdf *fdf)
 {
+	x = key;
 	x = y;
 	fdf->mouse.is_pressed = 0;
-	return 0;
+	return (0);
 }
 
-void change_proj(int key, t_fdf *fdf)
+void	change_proj(int key, t_fdf *fdf)
 {
 	fdf->cam.a = 0;
 	fdf->cam.b = 0;
@@ -47,10 +48,9 @@ void change_proj(int key, t_fdf *fdf)
 	else
 		fdf->cam.iso = 0;
 	write_data_to_window(fdf);
-	
 }
 
-int	mouse_push(int key, int x, int y, t_fdf *fdf)
+int		mouse_push(int key, int x, int y, t_fdf *fdf)
 {
 	x = y;
 	if (key == M_S_U || key == M_S_D)
@@ -58,29 +58,6 @@ int	mouse_push(int key, int x, int y, t_fdf *fdf)
 	else if (key == M_L)
 		fdf->mouse.is_pressed = 1;
 	return (1);
-}
-int	button_push(int key, t_fdf *fdf)
-{
-	if (key == K_L || key == K_R || key == K_U || key == K_D)
-	{
-		if (key == K_L)
-			fdf->cam.x -= 10;
-		else if (key == K_R)
-			fdf->cam.x += 10;
-		else if (key == K_U)
-			fdf->cam.y -= 10;
-		else
-			fdf->cam.y += 10;
-		write_data_to_window(fdf);
-	}
-	else if (key == K_I || key == K_P)
-		change_proj(key, fdf);
-	else if (key == K_E)
-	{
-		system("leaks fdf");
-		exit(0);
-	}
-	return 1;	
 }
 
 void	control(t_fdf *fdf)

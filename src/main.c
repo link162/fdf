@@ -6,15 +6,16 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 11:11:40 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/23 21:17:36 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/12/28 11:32:55 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void put_pixel(t_fdf *fdf, int x, int y, int color)
+void	put_pixel(t_fdf *fdf, int x, int y, int color)
 {
 	int i;
+
 	if (x >= MENU_SIZE && x < WINDOW_SIZE_X && y >= 0 && y < WINDOW_SIZE_Y)
 	{
 		i = (fdf->bits_per_pixel * x / 8) + y * fdf->size_line;
