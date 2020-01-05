@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:13:12 by ybuhai            #+#    #+#             */
-/*   Updated: 2019/12/28 11:41:25 by ybuhai           ###   ########.fr       */
+/*   Updated: 2020/01/05 15:35:37 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	check_point(char *line, int *i, t_point *p, t_fdf *fdf)
 
 	t = *i;
 	p->z = mod_atoi(line, i, fdf);
+	if (p->z == -1)
+		error_case(ERR_MAP, fdf);
 	if (!ft_strncmp(&line[*i], ",0x", 3))
 		p->color = mod_atoi_baze(line, i);
 	else

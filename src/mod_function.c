@@ -52,6 +52,8 @@ int		mod_atoi(char *str, int *i, t_fdf *fdf)
 		if (res > 2147483648)
 			error_case(ERR_MAP, fdf);
 	}
+	if (str[*i] && str[*i] != '\t' && str[*i] != '\n' && str[*i] != ' ')
+		return -1;
 	if ((res > 2147483647 && minus == 1))
 		error_case(ERR_MAP, fdf);
 	return ((int)res * minus);

@@ -101,14 +101,14 @@ int		main(int argc, char **argv)
 	{
 		fd = open(argv[1], O_RDONLY);
 		if (fd < 1)
-			ft_printf(ERR_FILE);
+			error_case(ERR_FILE, fdf);
 		else
 		{
 			check_size(fd, fdf);
 			close(fd);
 			fd = open(argv[1], O_RDONLY);
 			if (fd < 1)
-				ft_printf(ERR_FILE);
+				error_case(ERR_FILE, fdf);
 			fdf->name = &argv[0][2];
 			read_map(fd, fdf);
 		}

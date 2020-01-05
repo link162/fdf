@@ -34,13 +34,13 @@ $(NAME): $(LIBFT) $(OBJ)
 	@$(CC) $(OBJ) $(MLXFLAGS) $(LIBFT) -o $(NAME)
 	@printf "\033[1;32mfdf created \033[0m\n"
 
-$(OBJ): | $(OBJ_DIR)
+$(OBJ): $(OBJ_DIR)
 
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEAD)
-	@$(CC) -c  $< -o $@ $(CC_FLAGS) $(HEADER_FLAGS) $(DEBUG) 
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c 
+	@$(CC) -c  $< -o $@ $(CC_FLAGS) $(HEADER_FLAGS)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
