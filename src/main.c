@@ -30,14 +30,17 @@ void	error_case(char *str, t_fdf *fdf)
 	int i;
 
 	i = 0;
-	if (fdf->map)
-		while (i < fdf->heigth)
-			free(fdf->map[i++]);
-	if (fdf->map)
-		free(fdf->map);
 	if (str)
 		ft_printf("error: %s\n", str);
-	free(fdf);
+	if (!fdf);
+	else if (fdf->map)
+		while (i < fdf->heigth)
+			free(fdf->map[i++]);
+	else if (fdf->map)
+	{
+		free(fdf->map);
+		free(fdf);
+	}
 	get_next_line(-5, NULL);
 	exit(1);
 }

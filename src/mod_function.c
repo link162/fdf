@@ -29,7 +29,11 @@ int		mod_atoi_baze(char *str, int *i)
 	(*i) += 3;
 	while (ft_isdigit(str[*i]) || (str[*i] >= 'A' && str[*i] <= 'F') ||
 			(str[*i] >= 'a' && str[*i] <= 'f'))
+	{
+		if ((long long)res * 16 + (long long)values(str[*i]) > 2147483647)
+			error_case(ERR_MAP, NULL);
 		res = res * 16 + values(str[(*i)++]);
+	}
 	return (res);
 }
 
@@ -52,7 +56,7 @@ int		mod_atoi(char *str, int *i, t_fdf *fdf)
 		if (res > 2147483648)
 			error_case(ERR_MAP, fdf);
 	}
-	if (str[*i] && str[*i] != '\t' && str[*i] != '\n' && str[*i] != ' ')
+	if (str[*i] && str[*i] != '\t' && str[*i] != '\n' && str[*i] != ' ' && str[*i] != ',')
 		return -1;
 	if ((res > 2147483647 && minus == 1))
 		error_case(ERR_MAP, fdf);

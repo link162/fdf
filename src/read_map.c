@@ -22,6 +22,8 @@ void	check_point(char *line, int *i, t_point *p, t_fdf *fdf)
 		error_case(ERR_MAP, fdf);
 	if (!ft_strncmp(&line[*i], ",0x", 3))
 		p->color = mod_atoi_baze(line, i);
+	else if (line[*i] && line[*i] != ' ' && line[*i] != '\t')
+		error_case(ERR_MAP, fdf);
 	else
 		p->color = -1;
 }
@@ -67,7 +69,7 @@ void	full_fdf(t_fdf *fdf)
 	fdf->cam.zoom = (int)MINIMUM(((WINDOW_SIZE_X - MENU_SIZE) /
 				fdf->width / 2), (WINDOW_SIZE_Y / fdf->heigth / 2));
 	fdf->cam.z = 1;
-	fdf->cam.iso = 0;
+	fdf->cam.iso = 1;
 	write_data_to_window(fdf);
 	mlx_loop(fdf->mlx);
 }
